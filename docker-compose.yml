@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  notebook:
+    container_name: notebook
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - ${JUPYTER_PORT}:8888
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    restart: always
+    tty: true
+    command: start-notebook.sh --NotebookApp.token=""
+    volumes:
+      - type: bind
+        source: ./app/base
+        target: /app
